@@ -17,9 +17,9 @@ pipeline {
          }         
          stage('Upload to AWS') {
               steps {
-                  withAWS(region:'us-east-1',credentials:'AWS') {
+                  withAWS(region:'us-east-1',credentials:'jenkins') {
                   sh 'echo "Uploading content with AWS creds"'
-                      s3Upload(PathStyleAccessEnabled: true, PayloadSigningEnabled: true, File:'index.html', Bucket:'myousief-static')
+                      s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'index.html', bucket:'myousief-static')
                   }
               }
          }
