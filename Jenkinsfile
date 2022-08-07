@@ -14,7 +14,19 @@ pipeline {
               steps {
                   sh 'tidy -q -e *.html'
               }
-         }         
+         }
+
+         stage('Test') {
+             steps {
+                 sh './gradlew check'
+             }
+         }
+          post {
+              always {
+                  junit 'build/reports/**/*.xml'
+              }
+          }
+
          stage('Upload to AWS') {
               steps {
                   withAWS(region:'us-east-1',credentials:'AWS') {
