@@ -4,28 +4,24 @@ pipeline {
          stage('Build') {
              steps {
                  sh 'echo "Hello World"'
+                  sh './gradlew build'
                  sh '''
                      echo "Multiline shell steps works too"
                      ls -lah
                  '''
              }
          }
+          stage('Test') {
+            steps {
+                sh './gradlew check'
+            }
+        }
          stage('Lint HTML') {
               steps {
                   sh 'tidy -q -e *.html'
               }
          }
 
-         stage('Build') {
-            steps {
-                sh './gradlew build'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh './gradlew check'
-            }
-        }
 
          stage('Upload to AWS') {
               steps {
